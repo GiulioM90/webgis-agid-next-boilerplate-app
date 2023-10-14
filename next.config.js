@@ -1,9 +1,6 @@
 /** @type {import('next').NextConfig} */
 const CopyPlugin = require("copy-webpack-plugin");
 const path = require("path");
-// Prepare from/to 
-const from = "node_modules/bootstrap-italia/dist/";
-const to = path.join(__dirname, "./public/bootstrap-italia/dist");
 
 const nextConfig = { 
     webpack: (config, { 
@@ -15,7 +12,13 @@ const nextConfig = {
     }) => {
       config.plugins.push(
         new CopyPlugin({
-          patterns: [{ from, to }]
+          patterns: [{ 
+              from: 'node_modules/bootstrap-italia/dist/',
+              to: path.resolve(__dirname, './public/bootstrap-italia/dist')
+          },  {
+            from: 'node_modules/leaflet/dist/images',
+            to: path.resolve(__dirname, 'public', 'leaflet', 'images')
+          },]
         })
       );
       return config;
